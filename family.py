@@ -34,6 +34,7 @@ BEAMS_DIST = {54: "AHILYANAGAR", 62: "AKOLA", 61: "AMRAVATI", 33: "BEED", 47: "B
               51: "NASHIK", 16: "PALGHAR", 32: "PARBHANI", 22: "PUNE", 13: "RAIGAD", 14: "RATNAGIRI", 24: "SANGLI", 23: "SATARA",
               15: "SINDHUDURG", 25: "SOLAPUR", 12: "THANE", 45: "WARDHA", 65: "WASHIM", 64: "YAVATMAL"}   # the form's list, 2026-11-14
 BEAMS_YEARS = ["2026-2027", "2025-2026", "2024-2025", "2023-2024", "2022-2023"]
+BEAMS_DONE_YEARS = ["2025-2026", "2024-2025", "2023-2024", "2022-2023", "2021-2022"]     # the completed works report's years
 BIHAR = {7: "Araria", 33: "Arwal", 35: "Aurangabad", 23: "Banka", 20: "Begusarai", 22: "Bhagalpur", 29: "Bhojpur", 30: "Buxar",
          13: "Darbhanga", 2: "EastChamparan", 36: "Gaya", 15: "Gopalganj", 38: "Jamui", 34: "Jehanabad", 31: "Kaimur", 10: "Katihar",
          21: "Khagaria", 8: "Kishanganj", 25: "Lakhisarai", 11: "Madhepura", 5: "Madhubani", 24: "Munger", 14: "Muzaffarpur",
@@ -83,7 +84,9 @@ def _proj(name, title, adapter, items, unit, record, workers=2, delay_ms=1000, t
 PROJECTS = [
     _proj("mh-beams", "Maharashtra PWD capital works (BEAMS): every work with road category, chainage, cost, expenditure, contractor and RA bills",
           "beams", [{"key": f"l-{d}-{y}-{c}", "payload": {"kind": "list", "dept": d, "year": y, "dist": c, "dist_name": n}}
-                    for d in ("H", "T") for y in BEAMS_YEARS for c, n in BEAMS_DIST.items()],
+                    for d in ("H", "T") for y in BEAMS_YEARS for c, n in BEAMS_DIST.items()]
+                   + [{"key": f"c-{y}-{t}-{c}", "payload": {"kind": "completed", "dept": "H", "year": y, "worktype": t, "dist": c, "dist_name": n}}
+                      for y in BEAMS_DONE_YEARS for t in ("ROAD", "BRIDGE") for c, n in BEAMS_DIST.items()],
           "district list or work note", "work row or work note", workers=3, delay_ms=700, target="beams.mahakosh.gov.in"),
     _proj("mp-lppp", "Madhya Pradesh PWD LPPP dashboard: completed works with contractor, live works with agency",
           "lppp", [{"key": "completed-pwdbr", "payload": {"method": "GetCompletedWorks_PWDBR"}},

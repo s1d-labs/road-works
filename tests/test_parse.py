@@ -50,3 +50,9 @@ def test_ngsk():
 def test_table_rows():
     html = "<table><tr><td>S.No</td><td>Project Name</td></tr><tr><td>1</td><td>NH-48 km 10 to 20</td></tr></table>"
     assert table_rows(html) == [{"s_no": "1", "project_name": "NH-48 km 10 to 20"}]
+
+
+def test_beams_work_id():
+    assert beams.work_id("DEC/12/146/03083") == "121214603083"
+    assert beams.work_id("MAR/10/441/10432") == "100344110432"
+    assert beams.work_id("bad") is None

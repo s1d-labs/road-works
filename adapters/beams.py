@@ -8,6 +8,9 @@ Queue items:
       AA / TS / agreement cost and dates, % above or below, expenditure, physical progress, pending bill, work order date, time
       limit, work category, ROAD CATEGORY (SH / MDR number), CHAINAGE FROM / TO, taluka, constituency, division, circle, region).
       The page goes to the bucket as it came (raw/list/<dept>/<year>/<dist>.html.gz). Each work id is queued once as a "detail" item.
+  {"kind": "completed", "dept": "H", "year": "2021-2022", "worktype": "ROAD", "dist": 15}
+      The completed works report (same columns, no work-id link: the id comes from the work number). Record id
+      "done-<dept>-<year>-<work id>". No detail items: the work note of a closed work is empty (tested 2026-11-14).
   {"kind": "detail", "work": "121214603083", "y1": "2024", "y2": "2025"}
       The work's one-page note: AA number, MAIN AGENCY (contractor), scope rows with chainage, and every RA bill (year, type, date,
       bill no., agency, gross, cumulative expenditure, remark). Record id "work-<work id>".
@@ -21,6 +24,9 @@ from adapters.common import clean
 BASE = "https://beams.mahakosh.gov.in/Beams5/BudgetMVC/MISRPT/PWDWorkReports"
 FORM = f"{BASE}/pwd_capitalWorkRpt.jsp"
 LIST = f"{BASE}/PWDCapWorkListRpt.jsp?dept=H"
+DONE_FORM = f"{BASE}/PWDCompletedWorkReport.jsp"
+DONE_LIST = f"{BASE}/PWDCompletedWorkListReport.jsp"
+MONTHS = {m: i for i, m in enumerate(["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"], start=1)}
 DETAIL = f"{BASE}/PWDCapitalWorkIDDtls.jsp"
 DISTRICTS = {54: "AHILYANAGAR", 62: "AKOLA", 61: "AMRAVATI", 33: "BEED", 47: "BHANDARA", 63: "BULDHANA", 48: "CHANDRAPUR",
              31: "CHHATRAPATI SAMBHAJINAGAR", 35: "DHARASHIV", 52: "DHULE", 49: "GADCHIROLI", 44: "GONDIA", 38: "HINGOLI",
@@ -48,6 +54,15 @@ def form(dept, year, dist):
     return {"Tid": "", "deptCd": dept, "adminDept": dept, "bb": "Road", "selFinYear": year, "selWorkType": "ALL", "selCategory": "0",
             "selStatutoryReg": "0", "selRegion": "0", "selCO": "0", "selDist": str(dist), "constORtaluka": "1", "selConst": "0",
             "selTaluka": "", "selUserDeptId": "0", "selScheme": "0", "selDDO": "0"}
+
+
+def work_id(work_no):
+    """The numeric work id of a work number: DEC/12/146/03083 -> 121214603083 (year, month, code, serial; checked on the capital
+    works list, where both appear). Pure."""
+    m = re.fullmatch(r"([A-Z]{3})/(\d{2})/(\d{3})/(\d{5})", (work_no or "").strip())
+    if not m or m.group(1) not in MONTHS:
+        return None
+    return f"{m.group(2)}{MONTHS[m.group(1)]:02d}{m.group(3)}{m.group(4)}"
 
 
 def parse_list(page):
@@ -114,7 +129,7 @@ def _post(ctx, url, data=None, referer=FORM):
     """POST with the session the form page gives; one fresh session if the server answers its short error page."""
     for attempt in range(2):
         if attempt or not ctx.session.cookies.get("JSESSIONID"):
-            if ctx.request("GET", FORM, timeout=60) is None:
+            if ctx.request("GET", referer if referer in (FORM, DONE_FORM) else FORM, timeout=60) is None:
                 return None
         r = ctx.request("POST", url, data=data or {}, headers={"Referer": referer}, timeout=180)
         if r is not None and len(r.content) > 2500:
@@ -138,6 +153,22 @@ def run(ctx, p):
         if items and ctx.seed:
             for i in range(0, len(items), 500):
                 ctx.seed(items[i:i + 500])
+        return len(rows)
+    if p["kind"] == "completed":
+        data = form(p["dept"], p["year"], p["dist"])
+        data["selWorkType"] = p["worktype"]
+        for k in ("adminDept", "bb", "selDDO"):
+            data.pop(k)
+        r = _post(ctx, DONE_LIST, data, referer=DONE_FORM)
+        if r is None:
+            return None
+        ctx.hub.upload_many([(f"raw/completed/{p['dept']}/{p['year']}/{p['worktype']}-{p['dist']}.html.gz", gzip.compress(r.content, 6),
+                              "application/gzip")])
+        rows = parse_list(r.text)
+        for row in rows:
+            row["work_id"] = row.get("work_id") or work_id(row["work_no"])
+            ctx.record(f"done-{p['dept']}-{p['year']}-{row['work_id'] or row['work_no']}",
+                       {**row, "dept": p["dept"], "year": p["year"], "dist_code": p["dist"], "source": "beams-completed-works"})
         return len(rows)
     if p["kind"] == "detail":
         url = f"{DETAIL}?workId={p['work']}&yflag=&year1={p['y1']}&year2={p['y2']}"
