@@ -8,6 +8,10 @@
     "crawl": [
       "python",
       "crawl.py"
+    ],
+    "arcgis": [
+      "python",
+      "arcgis.py"
     ]
   }
 }

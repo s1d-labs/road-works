@@ -1,62 +1,70 @@
-"""The family's `crawl` task (see scrape.json). Try it without the hub: python crawl.py --local [url] The pool worker runs it with the assignment's env and:
+"""The family's `crawl` task (see scrape.json): one worker loop, one adapter per site.
+
+The project's pool entry sets ADAPTER (beams | lppp | rwdbihar | ngsk | kldlp | paimana | files); the adapter in adapters/<ADAPTER>.py turns one queue item into records
+and stored documents. The pool worker runs this with the assignment's env and:
 SCRAPE_POOL_PROJECT (which project), SCRAPE_JOB_INDEX / SCRAPE_TOTAL_JOBS (this worker's slice), SCRAPE_MAX_HOURS (time budget).
 
-It claims queue items from the hub, fetches each page politely (threads and delay come from the hub on every call), keeps the
-raw page in the family's bucket (the hub signs the upload; this code never holds a storage key), stores one record per book,
-and reports the standard counters (n_http, t_http_s, http_error, http_<code>) the hub uses for politeness and tracking.
+Try an adapter without the hub (records on stdout, documents under ./data/, counters on stderr):
+    python crawl.py --local beams '{"kind": "list", "dept": "H", "year": "2025-2026", "dist": 61}'
+The sites drop some foreign hosting addresses (the team box); there, set ALL_PROXY=socks5h://127.0.0.1:1080 NO_PROXY=127.0.0.1,localhost
+(needs `pip install pysocks`). GitHub's runners reach them directly.
 """
-import gzip
-import html
+import importlib
 import json
 import os
-import re
 import sys
 import time
 
-import requests
-from scrape_hub_client import HubClient, LocalHub, timed_get
+from adapters.common import Ctx, LocalHub, TimeUp
 
 PROJECT = os.environ.get("SCRAPE_POOL_PROJECT", "")
-SITE = os.environ.get("SITE", "https://books.toscrape.com")
-DEADLINE = time.time() + float(os.environ.get("SCRAPE_MAX_HOURS", "1")) * 3600 - 120
-UA = "s1d-labs scraper (https://github.com/s1d-labs)"
-BOOK = re.compile(r'<article class="product_pod">.*?<a href="([^"]+)" title="([^"]+)".*?<p class="price_color">([^<]+)</p>.*?'
-                  r'<p class="instock availability">\s*(?:<i[^>]*></i>)?\s*([^<]+?)\s*</p>', re.S)
+ADAPTER = os.environ.get("ADAPTER", "")
+MAX_S = float(os.environ.get("SCRAPE_MAX_HOURS", "1")) * 3600
+DEADLINE = time.time() + MAX_S - 120
+ITEM_S = min(15 * 60, MAX_S / 4)   # an item can take ~15 minutes (50 tenders and their documents): none starts with less time left
 
 
-def parse(page):
-    """[(record_id, data)] for the books on one catalogue page. Pure: test it on saved pages."""
-    out = []
-    for href, title, price, stock in BOOK.findall(page):
-        slug = href.rsplit("/", 2)[-2]
-        out.append((slug, {"title": html.unescape(title), "price": price.strip(), "availability": stock.strip(),
-                           "url": SITE + "/catalogue/" + href.lstrip("./")}))
-    return out
+def adapter(name):
+    if not name:
+        sys.exit("ADAPTER is not set: the project's pool entry (family.py env) names the adapter, e.g. ADAPTER=nhai")
+    return importlib.import_module(f"adapters.{name}")
 
 
-def local(url):
-    hub = LocalHub()
-    page = fetch(hub, requests.Session(), url)
-    rows = parse(page) if page else []
-    for rid, data in rows:
-        print(json.dumps({"record_id": rid, "data": data}, ensure_ascii=False))
-    print(f"{len(rows)} records, counters {hub.counts}", file=sys.stderr)
+def local(name, payload):
+    hub = LocalHub(f"local-{name}")
+    ctx = Ctx(hub, project=hub.project)
+    ctx.seed = lambda items: print(f"seed {len(items)} items, first {items[0]['key']}", file=sys.stderr)
+    n = adapter(name).run(ctx, json.loads(payload))
+    print(f"{n} records, counters {hub.counts}", file=sys.stderr)
 
 
-def fetch(hub, session, url):
-    r = timed_get(hub, session, url, timeout=30, headers={"User-Agent": UA})    # counts n_http, t_http_s, http_<code>, http_error
-    if r is None or r.status_code != 200:
-        return None
-    if not r.encoding or r.encoding.lower() == "iso-8859-1":     # no charset declared: requests guesses Latin-1; trust the content
-        r.encoding = r.apparent_encoding or "utf-8"
-    return r.text
+def site_answers(ctx, site, tries=2):
+    """A proxied run's first look at the site. Some sites refuse some of the hub's proxies (mes.gov.in answers only the
+    91.124.42.x ones, 2 Nov 2026): better to give the proxy back than to fail queue items through it."""
+    for _ in range(tries):
+        r = ctx.request("GET", site, timeout=45, stream=True)
+        if r is not None:
+            r.close()
+            return True
+    return False
 
 
 def main():
+    from scrape_hub_client import HubClient      # imported here so --local works without it
+    run = adapter(ADAPTER).run
     hub = HubClient(PROJECT, job_index=int(os.environ.get("SCRAPE_JOB_INDEX", "0")), total_jobs=int(os.environ.get("SCRAPE_TOTAL_JOBS", "1")))
-    session = requests.Session()
+    ctx = Ctx(hub, project=PROJECT, deadline=DEADLINE)
+    from scrape_hub_client import seed_queue
+    ctx.seed = lambda items: seed_queue(PROJECT, items)
+    site, exit_ip = os.environ.get("SITE", ""), os.environ.get("SCRAPE_PROXY_EXIT", "")
+    if (os.environ.get("SCRAPE_PROXY") or os.environ.get("HTTPS_PROXY")) and site and not site_answers(ctx, site):
+        hub.metric("proxy_refused")
+        via = exit_ip or os.environ.get("SCRAPE_PROXY_LABEL") or "proxy"
+        hub.failure("proxy", f"{site} via {via}"[:200], f"{site} does not answer through this proxy: no item claimed")
+        hub.close("failed", f"{site} does not answer through {via}"[:200])
+        sys.exit(3)                                     # non-zero: the worker waits a while before asking for work again
     try:
-        while time.time() < DEADLINE:
+        while time.time() < DEADLINE - ITEM_S:
             if hub.settings.get("paused"):
                 time.sleep(30)                          # the hub holds us (site down, or the family owner paused it)
                 continue
@@ -64,16 +72,19 @@ def main():
             if not items:
                 break                                   # nothing left for this project: exit, the worker asks the hub for more
             item = items[0]
-            page = fetch(hub, session, item["payload"]["url"])
-            if page is None:
-                hub.complete([item["key"]], "failed", error="page did not load")
+            try:
+                n = run(ctx, item["payload"])
+            except TimeUp:                              # records sent so far are kept (upserts); the item goes back to the queue
+                hub.complete([item["key"]], "failed", error="time budget used up before the item finished")
+                break
+            except Exception as e:                      # one bad item must not stop the worker; the hub retries it later
+                hub.failure("item", item["key"][:200], f"{type(e).__name__}: {e}"[:300])
+                hub.complete([item["key"]], "failed", error=f"{type(e).__name__}: {e}"[:200])
                 continue
-            hub.upload_many([(f"pages/{item['key']}.html.gz", gzip.compress(page.encode()), "application/gzip")])
-            rows = parse(page)
-            for rid, data in rows:
-                hub.record(rid, {**data, "page": item["key"]})
-            hub.complete([item["key"]], "done", fetched=len(rows))
-            time.sleep(max(0.5, hub.settings.get("delay_ms", 0) / 1000))
+            if n is None:
+                hub.complete([item["key"]], "failed", error="site did not answer")
+            else:
+                hub.complete([item["key"]], "done", fetched=n)
         hub.close()
     except BaseException as e:
         hub.close("failed", f"{type(e).__name__}: {e}"[:200])
@@ -82,6 +93,6 @@ def main():
 
 if __name__ == "__main__":
     if sys.argv[1:2] == ["--local"]:
-        local(sys.argv[2] if len(sys.argv) > 2 else SITE + "/catalogue/page-1.html")
+        local(sys.argv[2], sys.argv[3])
     else:
         main()

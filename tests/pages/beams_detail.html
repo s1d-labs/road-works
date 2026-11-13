@@ -1,0 +1,394 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link href="../../css/internalstyle.css" rel="stylesheet"
+	type="text/css">
+<!-- <link href="../../css/Work_Report.jrxml" rel="stylesheet" type="text/css"> -->
+<link href="DesignFiles/Work_Report.jrxml" rel="stylesheet"
+	type="text/css">
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Work-Details work Id 121214603083</title>
+<style type="text/css">
+@media print {
+	body * {
+		visibility: hidden;
+	}
+	#section-to-print, #section-to-print * {
+		visibility: visible;
+	}
+	#section-to-print {
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+	@page {
+		margin-left: 0.3in;
+		margin-right: 0.3in;
+		margin-top: 0.3in;
+		margin-bottom: 0.3in;
+	}
+}
+</style>
+<style>
+div.gallery {
+	margin: 3px;
+	height: 80px;
+	float: left;
+	width: 180px;
+}
+
+div.gallery img {
+	width: 100%;
+	height: 90%;
+	width: 45%;
+}
+
+div.desc {
+	padding: 15px;
+	text-align: center;
+}
+</style>
+<script>
+  function printpg()
+  {
+	window.print();
+  }
+  
+  function printFunc(workId) 
+	{
+	  //style="text-align:center;width:45%;border: 0px white;padding: 10px;margin-left: 308%">
+	  var beams = document.getElementById("beams");
+	  var printBtn = document.getElementById("print");
+      var ExcelBtn = document.getElementById("jasper");
+      printBtn.style.visibility = 'hidden';
+      beams.style.marginLeft = "130px";
+      ExcelBtn.style.visibility = 'hidden';
+      window.print()
+      printBtn.style.visibility = 'visible';
+      ExcelBtn.style.visibility = 'visible';
+      beams.style.marginLeft = "240%";      
+	  
+	}
+  function function_pdf(){
+	
+	  document.frm.action="SchemeName.jsp";
+      document.frm.method="POST";
+	  document.frm.target="_blank";
+      document.frm.submit();
+  } 
+	
+	function jFunGetWorkPhoto(y1,y2,REG_CD,DIST_CD,TREA_CD,DDO_CD,TRANS_NO)
+	{
+		   document.getElementById("year1").value=y1;	
+		   document.getElementById("year2").value=y2;	
+		   document.getElementById("REG_CD").value=REG_CD;	
+		   document.getElementById("DIST_CD").value=DIST_CD;	
+		   document.getElementById("TREA_CD").value=TREA_CD;	
+		   document.getElementById("DDO_CD").value=DDO_CD;	
+		   document.getElementById("TRANS_NO").value=TRANS_NO;	
+		   document.getElementById("type").value="photo";	
+		   		   
+		    var urlWork="PWDCapitalWorkIDDtls.jsp";               
+            document.frm.target="_blank";
+            document.frm.action=urlWork;
+            document.frm.method="POST";
+            document.frm.submit();
+	}
+	
+</script>
+</head>
+<body style="background-color: white;">
+
+	<table width="100%" cellpadding="0" cellspacing="0" border="0"
+		class="main-table">
+		<tr>
+
+			
+			<div align="right">
+				<td align="right"><input type="button" id="print"
+					name="submitval" value="Print" onclick="printFunc('121214603083');">
+					<input type="button" id="jasper" name="submitval"
+					value="Download to PDF" onclick="function_pdf();"></td>
+			</div>
+
+		</tr>
+	</table>
+	
+	<div id="section-to-print">
+		<form name="frm" id="frm" method="post">
+			
+			<input type="hidden" name="year1" id="year1" value="2026">
+			<input type="hidden" name="year2" id="year2" value="2027">
+			<input type="hidden" name="workId" id="workId" value="121214603083">
+			<input type="hidden" name="showCodes" id="showCodes"
+				value="50540349"> <input type="hidden" name="dept"
+				id="dept" value="H"> <input type="hidden"
+				name="selFinYear" id="selFinYear" value=""> <input
+				type="hidden" name="selCO" id="selCO" value=""> <input
+				type="hidden" name="selWorkType" id="selWorkType"
+				value="ROAD      "> <input type="hidden"
+				name="selStatutoryReg" id="selStatutoryReg" value=""> <input
+				type="hidden" name="selRegion" id="selRegion" value=""> <input
+				type="hidden" name="selDist" id="selDist" value=""> <input
+				type="hidden" name="selConst" id="selConst" value=""> <input
+				type="hidden" name="selTaluka" id="selTaluka" value=""> <input
+				type="hidden" name="REG_CD" id="REG_CD" value=""> <input
+				type="hidden" name="DIST_CD" id="DIST_CD" value=""> <input
+				type="hidden" name="TREA_CD" id="TREA_CD" value=""> <input
+				type="hidden" name="DDO_CD" id="DDO_CD" value=""> <input
+				type="hidden" name="TRANS_NO" id="TRANS_NO" value=""> <input
+				type="hidden" name="type" id="type" value="">
+
+			
+               <div class="text-content">
+
+				<div class="text-content">
+					<div class="gallery">
+						<img src="../PWDWorkReports/DesignFiles/AshokSt.png"
+							alt="AshokStambh" align="right" width="100" height="100"
+							style="text-align: center; width: 35%; border: 0px white; padding: 5px; margin-left: 20%;">
+					</div>
+
+					<div class="gallery">
+						<img src="../PWDWorkReports/DesignFiles/Beamslogo.jpg" id="beams"
+							alt="beams" align="middle" width="100" height="100"
+							style="text-align: center; width: 45%; border: 0px white; padding: 5px; margin-left: 240%">
+					</div>
+					<!--  <div class="gallery">
+		<img src="../PWDWorkReports/DesignFiles/blank.jpg" alt="blank" align="left" width="100" height="100"  style="text-align:right;width: 35%;border: 0px white;padding: 10px;margin-left:605%">
+	</div>  -->
+
+				</div>
+				<div style="margin-top: 0px;">
+					<div style="height: auto; text-align: center; margin-bottom: 12px;">
+						<span><b>Government of Maharashtra<br> Public
+								Works Department<br> One page Note As on 14-11-2026
+						</b></span>
+					</div>
+				</div>
+				<table width="96%" cellpadding="0" cellspacing="0" border="0"
+					class="data-table" id="table1">
+					<tr>
+						<th width="15%" align="left">District</th>
+						<td>Amravati</td>
+						<th>Taluka</th>
+						<td colspan="5">Amravati</td>
+					</tr>
+					<tr>
+						<th align="left">Constituency</th>
+						<td colspan="5">Badnera</td>
+					</tr>
+					<tr>
+						<th align="left" width="120">&nbsp;Work ID</th>
+						
+						
+						<td><b> DEC/12/146/03083 
+						</b></td>
+						<th align="center">Work Type</th>
+						<td colspan="3">ROAD      </td>
+					<tr>
+						<th align="left">Division</th>
+						<td>6101003421-Ee Pwd Amravati <br></td>
+						<th align="center">Sub Division</th>
+						<td colspan="2">6101913421</td>
+					</tr>
+					<tr>
+						<th align="left">Scheme Code</th>
+						<td colspan="5">
+							
+
+							50540349 - Major Works (state Highways - Roads)</td>
+						
+
+						</td>
+					</tr>
+
+					<tr>
+						<th align="left">Name of the work(English)</th>
+						<td colspan="5">Widening And Four Lanning To Amravati Badnera Road. Sh-304 Km. 163-300 To 163-800 In Amravati District.</td>
+					</tr>
+
+					<tr>
+						<th align="left">Name of the work(Marathi)</th>
+						<td colspan="5">अमरावती जिल्हयातील अमरावती बडनेरा रस्‍ता रामा 304 ची उर्वरीत भागाचे चौपदरीकरण करणे किमी 163/300 ते 163/800</td>
+					</tr>
+					<tr>
+						<th align="left">Administrative Approval Date</th>
+						<td colspan="5">27-11-2012</td>
+					</tr>
+					<tr>
+						<th align="left">Administrative Approval No.</th>
+						<td colspan="5">SH-3612/CR-1823/ PLN-3</td>
+					</tr>
+					<tr>
+						<th align="left">AA Amount (Rs.)</th>
+						<td colspan="5">15000000</td>
+					</tr>
+					
+					<tr>
+						<th align="left">Technical Sanction Amt.(RS.)</th>
+						<td colspan="5">13687598</td>
+					</tr>
+					<tr>
+						<th align="left">Technical Sanction Date</th>
+						<td colspan="5">01-05-2014</td>
+					</tr>
+					<tr>
+						<th align="left" colspan="1">Contract Agreement Amt.(RS.)</th>
+						<td>11633339</td>
+						<th>% above/below</th>
+						<td colspan="3">-13.31</td>
+					</tr>
+					<tr>
+						<th align="left">Date Of Work Order</th>
+						<td>01-08-2014</td>
+						<th>Original Time Limit in Days</th>
+						<td colspan="5">365</td>
+					</tr>
+					<tr>
+						<th align="left">Extended Time Limit in Date</th>
+						<td colspan="5"></td>
+					</tr>
+					<tr>
+						<th align="left">Main Agency Name</th>
+						<td colspan="5">M/s G H Khandelwal</td>
+
+					</tr>
+
+					<tr>
+						
+						<td colspan="9">
+							<table width="100%" cellpadding="0" cellspacing="0" border="0"
+								class="data-table" id="table1">
+								<tr>
+									<th align="left">Scope</th>
+									<th>Provision</th>
+									<th>Chainage From</th>
+									<th>Chainage To</th>
+									<th>Length In Meter</th>
+									<th>Amount</th>
+								</tr>
+								
+							</table>
+						</td>
+						
+
+					<tr>
+						<th align="left">Remark</th>
+						<td colspan="5"></td>
+					</tr>
+					<tr>
+						<th align="left">Pending Bill Amount (RS.)</th>
+						<td colspan="5"></td>
+					</tr>
+				</table>
+			</div>
+			<div class="text-content">
+				<br />
+				
+				<table width="96%" class="data-table" cellpadding="0"
+					cellspacing="0" border="0">
+					<tr>
+						<th>EXP. Upto March 2016</th>
+						<th>EXP. Upto july 2016</th>
+						<th>EXP. Uncaptured</th>
+					</tr>
+					<tr>
+						<td align="right">9143000</td>
+						<td align="right">0</td>
+						<td align="right">1780000.000</td>
+					</tr>
+
+				</table>
+				
+				<table width="96%" class="data-table" cellpadding="0"
+					cellspacing="0" border="0">
+					<tr>
+						<th align="left" colspan="8">Payment Details : Scheme:50540349-Major Works (State Highways - Roads)</th>
+					</tr>
+					<tr>
+						<th>Financial year</th>
+						<th>RA Bill Details</th>
+						<th width="12%">Date</th>
+						<th width="5%">Bill No.</th>
+						<th>Name of Agency</th>
+						<th width="5%">Gross Amount(Rs.)</th>
+						<th width="5%">Cumulative Expenditure(Rs.)</th>
+						<th>Remark</th>
+						
+					</tr>
+					
+					<tr>
+						<td align="center">2016-2017</td>
+						<td align="center">ELECTRICAL WORK</td>
+						<td align="center">25-11-2016</td>
+						<td align="center">
+							
+						1370
+						
+						</td>
+						<td align="center">Your Self</td>
+						<td align="right">2000000</td>
+						<td align="right">12923000</td>
+						<td align="center">Work Is In Progress                                                                                 </td>
+						
+					</tr>
+					
+					<tr>
+						<td align="center">2017-2018</td>
+						<td align="center">FINAL BILL</td>
+						<td align="center">23-02-2018</td>
+						<td align="center">
+							
+						1778
+						
+						</td>
+						<td align="center">M/s G H Khandelwal</td>
+						<td align="right">3199072</td>
+						<td align="right">16122072</td>
+						<td align="center">Road Widening Completed                                                                             </td>
+						
+					</tr>
+					
+					<tr>
+						<td align="center">2018-2019</td>
+						<td align="center">WORK CONTENGENCIES</td>
+						<td align="center">02-02-2019</td>
+						<td align="center">
+							
+						1504
+						
+						</td>
+						<td align="center">Sr  Geologist. Ground.wtr.serv. Devp.agency.</td>
+						<td align="right">6000</td>
+						<td align="right">16128072</td>
+						<td align="center">Unavoidable Expenditure                                                                             </td>
+						
+					</tr>
+					
+
+				</table>
+				
+			</div>
+		</form>
+
+		
+	</div>
+</body>
+</html>
