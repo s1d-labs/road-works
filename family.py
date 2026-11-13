@@ -57,6 +57,7 @@ def _file(name, url, mode, **kw):
     return {"key": name, "payload": {"name": name, "url": url, "mode": mode, **kw}}
 
 
+# nhai.gov.in answers only the hub proxies 91.124.42.x: the national project borrows only those (proxy_only)
 NATIONAL = (
     [_file(f"nhai-{n}", f"{NHAI}/get_{n}_projects.json", "json-data") for n in ("ui", "om", "dpr_in_progress", "target_in_cfy", "to_be_awarded")]
     + [_file("nhidcl-status", "https://nhidcl.com/en/current-status", "find-xlsx", verify=False)]
@@ -74,8 +75,8 @@ RAMS_LAYERS = ["WORKSHISTORY", "MPRDC_WORKSHIST", "MPRDC_WORKS_ONGOING_UPCOMING"
 IPMS = "https://gis.autodcr.com/server/rest/services/IPMS_GISLAYERS_LIVE/FeatureServer"
 
 
-def _proj(name, title, adapter, items, unit, record, workers=2, delay_ms=1000, target="", task="crawl"):
-    return {"name": f"{FAMILY}-{name}", "title": title, "task": task, "target": target, "env": {"ADAPTER": adapter} if adapter else {},
+def _proj(name, title, adapter, items, unit, record, workers=2, delay_ms=1000, target="", task="crawl", proxy_only=None):
+    return {"proxy_only": proxy_only, "name": f"{FAMILY}-{name}", "title": title, "task": task, "target": target, "env": {"ADAPTER": adapter} if adapter else {},
             "proxy": "IN", "max_workers": workers, "delay_ms": delay_ms, "unit_label": unit, "record_label": record, "items": items}
 
 
@@ -108,7 +109,7 @@ PROJECTS = [
           "paimana", [{"key": f"m-{m}", "payload": {"month": m, "sector": 107}} for m in PAIMANA_MONTHS],
           "month", "project-month", workers=1, delay_ms=2000, target="paimana-proj.mospi.gov.in"),
     _proj("national", "NHAI project lists, NHIDCL project status with contractors, Infracon tender lists, TN highways works PDFs, Kerala iROADS tiles",
-          "files", NATIONAL, "file", "row or file", workers=2, delay_ms=1000, target="nhai.gov.in"),
+          "files", NATIONAL, "file", "row or file", workers=2, delay_ms=1000, target="nhai.gov.in", proxy_only=["91.124.42."]),
 ]
 
 BEAMS_FORM = "https://beams.mahakosh.gov.in/Beams5/BudgetMVC/MISRPT/PWDWorkReports/pwd_capitalWorkRpt.jsp"
