@@ -9,7 +9,7 @@ Queue items:
       limit, work category, ROAD CATEGORY (SH / MDR number), CHAINAGE FROM / TO, taluka, constituency, division, circle, region).
       The page goes to the bucket as it came (raw/list/<dept>/<year>/<dist>.html.gz). Each work id is queued once as a "detail" item.
   {"kind": "completed", "dept": "H", "year": "2021-2022", "worktype": "ROAD", "dist": 15}
-      The completed works report (same columns, no work-id link: the id comes from the work number). Record id
+      The completed works report (same columns; work id from the row link, else from the work number). Record id
       "done-<dept>-<year>-<work id>". No detail items: the work note of a closed work is empty (tested 2026-11-14).
   {"kind": "detail", "work": "121214603083", "y1": "2024", "y2": "2025"}
       The work's one-page note: AA number, MAIN AGENCY (contractor), scope rows with chainage, and every RA bill (year, type, date,
