@@ -1,0 +1,941 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1"><title>
+
+</title><link href="../css/bootstrap.css" rel="stylesheet" /><link href="../css/global.css" rel="stylesheet" type="text/css" /><link href="../css/font-awesome.min.css" rel="stylesheet" /><link href="../css/Oswald.css" rel="stylesheet" /><link href="../RWDAdminPanel/dist/css/AdminLTE.css" rel="stylesheet" type="text/css" /><link href="../css/RwdPortal.css" rel="stylesheet" /><link href="../favicon.ico" rel="icon" sizes="16x16" /><link href="../css/developer.css" rel="stylesheet" /><link rel="../stylesheet" type="text/css" href="css/styleswitcher.css" /><link href="../css/GridStyle.css" rel="stylesheet" /></head>
+<body>
+    <form method="post" action="./ATR_Report.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
+
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="09A2D787" />
+<input type="hidden" name="__VIEWSTATEENCRYPTED" id="__VIEWSTATEENCRYPTED" value="" />
+
+   <div class="row bgHeader nav text-center">
+            <span id="Label4" class="HeaderText">ATR Report  (Action Taken Report)</span>
+        </div>
+
+ <br />
+        <table style="width: 100%;">
+      
+       
+        <tr>
+            <td colspan="3"></td>
+            <td style="text-align: center;" colspan="3">
+                <input id="rdnRoad" type="radio" name="QMC" value="rdnRoad" checked="checked" /><label for="rdnRoad">Road</label>
+
+                <input id="rdnBridge" type="radio" name="QMC" value="rdnBridge" onclick="javascript:setTimeout(&#39;__doPostBack(\&#39;rdnBridge\&#39;,\&#39;\&#39;)&#39;, 0)" /><label for="rdnBridge">Bridge</label>
+                 <input id="rdnMaintn" type="radio" name="QMC" value="rdnMaintn" onclick="javascript:setTimeout(&#39;__doPostBack(\&#39;rdnMaintn\&#39;,\&#39;\&#39;)&#39;, 0)" /><label for="rdnMaintn">Maintenance</label>
+            </td>
+            <td colspan="2"></td>
+        </tr>
+     </table>
+        <table>
+
+</br>
+        </table>
+          <table style="width: 100%">
+        <tr>
+            <td style="text-align: right;">
+                <span id="Label6"><b><font size="4">Chief Engineer</font></b></span>&nbsp;
+                </td>
+            <td>
+                <select name="ddlWing" id="ddlWing">
+	<option value="0">-::ALL::-</option>
+	<option selected="selected" value="1">CE-1, Patna</option>
+	<option value="2">CE-2, Gaya</option>
+	<option value="3">CE-3,Bhagalpur</option>
+	<option value="4">CE-4,Purnea</option>
+	<option value="5">CE-5,Muzaffarpur</option>
+	<option value="6">CE-6,Darbhanga</option>
+
+</select>
+            </td>
+
+             <td style="text-align: right;">
+                    <span id="Label3"><b><font size="4">Circle Name : *</font></b></span>&nbsp;</td>
+            <td>
+                <select name="ddlCircle" id="ddlCircle">
+	<option value="0">-::ALL::-</option>
+	<option selected="selected" value="1">Patna</option>
+	<option value="2">Nalanda</option>
+	<option value="4">Ara</option>
+	<option value="13">Chapra</option>
+
+</select>
+            </td>
+
+             <td style="text-align: right;">
+                    <span id="Label2"><b><font size="4">Division : *</font></b></span>&nbsp;
+                </td>
+            <td>
+                <select name="ddlDivision" id="ddlDivision">
+	<option value="0">-::ALL::-</option>
+	<option value="1">Patna</option>
+	<option selected="selected" value="2">Danapur</option>
+	<option value="3">Barh</option>
+	<option value="4">Masaurhi</option>
+	<option value="5">Paliganj</option>
+
+</select>
+            </td>
+
+            <td style="text-align: right;">
+                    <span id="Label5"><b><font size="4">Scheme : *</font></b></span>&nbsp;</td>
+                
+            <td>
+                <select name="ddlScheme" id="ddlScheme">
+	<option selected="selected" value="0">-::ALL::-</option>
+	<option value="1">MMGSY OLD</option>
+	<option value="2">PMGSY</option>
+	<option value="3">State Plan[NABARD]</option>
+	<option value="4">4515</option>
+	<option value="5">SCP</option>
+	<option value="6">BADP</option>
+	<option value="7">ASAD</option>
+	<option value="8">MR</option>
+	<option value="9">D.M.</option>
+	<option value="11">WB[Koshi]</option>
+	<option value="12">MMGSY[Gen]</option>
+	<option value="13">MMGSY[SC]</option>
+	<option value="14">MMGSY[ST]</option>
+	<option value="16">FDR</option>
+	<option value="17">MMGSY[WB]</option>
+	<option value="18">GTSNY</option>
+	<option value="19">MMGSY-NDB(BRICS)-I</option>
+	<option value="22">PMGSY-NEA</option>
+	<option value="23">PMGSY-II</option>
+	<option value="25">PMGSY-IIl</option>
+	<option value="26">NEW MR</option>
+	<option value="27">MMGSY Awsesh[Gen]</option>
+	<option value="28">MMGSUY[Gen]</option>
+	<option value="30">MMGSUY[SC]</option>
+	<option value="31">MMGSUY[ST]</option>
+	<option value="32">MGSY</option>
+	<option value="35">RRSMP[Gen]</option>
+	<option value="36">RRSMP[SC]</option>
+	<option value="37">RRSMP[ST]</option>
+	<option value="38">SSY</option>
+	<option value="39">MMGSY Awsesh[SC]</option>
+	<option value="40">MMGSY Awsesh[ST]</option>
+	<option value="41">PMGSY POST [DLP]</option>
+	<option value="42">PMGSY-IV</option>
+	<option value="43">SN-3</option>
+	<option value="44">BKBDP</option>
+
+</select>
+            </td>
+              <td style="text-align: right;"> &nbsp;</td>
+            <td>
+                
+            </td>
+        </tr>
+              <tr>
+<td></br></td>
+<td></br></td>
+                  <td></br></td>
+              </tr>
+        <tr>
+            
+
+          
+          
+                <td id="tdroadlbl" style="width: 12%; text-align: right;"><b style="font-size:medium">(ALL/ATR/NoN-ATR) Roads:</b></td>
+
+            <td id="tdroadddl" style="width: 12%; text-align: left;">
+                <select name="ddlroadatr" id="ddlroadatr">
+	<option selected="selected" value="0">All Roads</option>
+	<option value="1">ATR Roads</option>
+	<option value="2">NON ATR Roads</option>
+
+</select>
+            </td>
+
+
+            
+            
+       
+            <td style="width: 12%; text-align: right;"><b style="font-size:medium">Search(By Road/Bridge Name):</b></td>
+            <td colspan="3">
+                 <input name="txtSrcByRoad" type="text" id="txtSrcByRoad" />
+                <input type="submit" name="btnRoadSrc" value="Search" id="btnRoadSrc" class="btncolor" />
+            </td>
+         
+            <td>
+                </td>
+           
+             </tr>
+
+       
+    </table>
+      </br>
+        <div class="col-md-12 col-sm-6 col-sm-12 text-center rounded_corners">
+        <div class="table-responsive">
+        <div>
+	<table class="table table-bordered table-hover table-responsive" cellspacing="0" align="Center" rules="all" border="1" id="gvATRRoadGen" width="100%">
+		<tr bgcolor="#015486">
+			<th class="heder" scope="col"><font color="White" size="3">SlNo</font></th><th class="heder" scope="col"><font color="White" size="3">Wing</font></th><th class="heder" scope="col"><font color="White" size="3">Circle</font></th><th class="heder" scope="col"><font color="White" size="3">Division</font></th><th class="heder" scope="col"><font color="White" size="3">Scheme</font></th><th class="heder" scope="col"><font color="White" size="3">Road Name</font></th><th class="heder" scope="col"><font color="White" size="3">Observation Date</font></th><th class="heder" scope="col"><font color="White" size="3">ATR No.</font></th><th class="heder" scope="col"><font color="White" size="3">User Name</font></th><th class="heder" scope="col"><font color="White" size="3">Awarded Grade</font></th><th class="heder" scope="col"><font color="White" size="3">Contractor Name</font></th><th class="heder" scope="col"><font color="White" size="3">ATR Compliance</font></th><th class="heder" scope="col"><font color="White" size="3">Letter No</font></th><th class="heder" scope="col"><font color="White" size="3">Letter Date</font></th>
+		</tr><tr bgcolor="#CCFFCC">
+			<td><font color="#3A3A3A" size="3">
+                        <itemtemplate>
+                                21
+                            </itemtemplate>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        CE-1, Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Danapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        MMGSY[WB]
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Koriyawan Pul To Muradpur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">17-Nov-2017</font></td><td><font color="#3A3A3A" size="3">
+                        
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        IEDanapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        S
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        S.B.ENGICON PRIVATE LIMITED-> D | AATCS7399N | N/A
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        <span id="gvATRRoadGen_lblATRComp_0"></span>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">&nbsp;</font></td>
+		</tr><tr bgcolor="LightGrey">
+			<td><font color="#3A3A3A" size="3">
+                        <itemtemplate>
+                                22
+                            </itemtemplate>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        CE-1, Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Danapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        MR
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Repair of road N.H.-30 to Gyaspur road 
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">23-Mar-2018</font></td><td><font color="#3A3A3A" size="3">
+                        
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        IEDanapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        S
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        BINOD KUMAR SINGH
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        <span id="gvATRRoadGen_lblATRComp_1"></span>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">&nbsp;</font></td>
+		</tr><tr bgcolor="#CCFFCC">
+			<td><font color="#3A3A3A" size="3">
+                        <itemtemplate>
+                                23
+                            </itemtemplate>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        CE-1, Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Danapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        MR
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Repair of road N.H.-30 to Telhari Mor S.H. road to Sikandarpur road 
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">02-Apr-2018</font></td><td><font color="#3A3A3A" size="3">
+                        
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        IEDanapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        S
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        BINOD KUMAR SINGH
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        <span id="gvATRRoadGen_lblATRComp_2"></span>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">&nbsp;</font></td>
+		</tr><tr bgcolor="LightGrey">
+			<td><font color="#3A3A3A" size="3">
+                        <itemtemplate>
+                                24
+                            </itemtemplate>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        CE-1, Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Danapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        MR
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Repair of road from Bihta Shivala P.W.D. road to Sadishopur to Bihta Railway via Sadishopur road
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">26-Mar-2018</font></td><td><font color="#3A3A3A" size="3">
+                        
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        IEDanapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        S
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        SANJAY KUMAR SINGH
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        <span id="gvATRRoadGen_lblATRComp_3"></span>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">&nbsp;</font></td>
+		</tr><tr bgcolor="#CCFFCC">
+			<td><font color="#3A3A3A" size="3">
+                        <itemtemplate>
+                                25
+                            </itemtemplate>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        CE-1, Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Danapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        MR
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        NH-30 to Katesar Road 
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">25-Dec-2017</font></td><td><font color="#3A3A3A" size="3">
+                        2443
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        IEDanapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        U
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        JAWAHAR LAL YADAV
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        <span id="gvATRRoadGen_lblATRComp_4">Regraded&nbspto&nbsp&#34S&#34</span>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        5274
+                    </font></td><td><font color="#3A3A3A" size="3">15-Nov-2018</font></td>
+		</tr><tr bgcolor="LightGrey">
+			<td><font color="#3A3A3A" size="3">
+                        <itemtemplate>
+                                26
+                            </itemtemplate>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        CE-1, Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Danapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        MMGSY[Gen]
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Sipara Punpun Path to Adityapuri
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">28-Jan-2018</font></td><td><font color="#3A3A3A" size="3">
+                        
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        IEDanapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        S
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Aryan Constructions, 3496/13
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        <span id="gvATRRoadGen_lblATRComp_5"></span>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">&nbsp;</font></td>
+		</tr><tr bgcolor="#CCFFCC">
+			<td><font color="#3A3A3A" size="3">
+                        <itemtemplate>
+                                27
+                            </itemtemplate>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        CE-1, Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Danapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        MMGSY[SC]
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Badal Tola to Dudhaila
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">09-Jan-2018</font></td><td><font color="#3A3A3A" size="3">
+                        
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        IEDanapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        S
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Maner Engicon Pvt. Ltd.  4750/14, Class - II
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        <span id="gvATRRoadGen_lblATRComp_6"></span>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">&nbsp;</font></td>
+		</tr><tr bgcolor="LightGrey">
+			<td><font color="#3A3A3A" size="3">
+                        <itemtemplate>
+                                28
+                            </itemtemplate>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        CE-1, Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Danapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        GTSNY
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        PMGSY Road Katesar to bind toli Ganjpar east Tola
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">29-Jan-2018</font></td><td><font color="#3A3A3A" size="3">
+                        
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        IEDanapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        S
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Tara Rajat Enclave Private Limited
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        <span id="gvATRRoadGen_lblATRComp_7"></span>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">&nbsp;</font></td>
+		</tr><tr bgcolor="#CCFFCC">
+			<td><font color="#3A3A3A" size="3">
+                        <itemtemplate>
+                                29
+                            </itemtemplate>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        CE-1, Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Danapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        MR
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                         Repair of road from Painal to Sadisopur road to Mustafapur road
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">25-Dec-2017</font></td><td><font color="#3A3A3A" size="3">
+                        2442
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        IEDanapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        U
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        ARUN KUMAR
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        <span id="gvATRRoadGen_lblATRComp_8">Regraded&nbspto&nbsp&#34S&#34</span>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        5804
+                    </font></td><td><font color="#3A3A3A" size="3">13-Dec-2018</font></td>
+		</tr><tr bgcolor="LightGrey">
+			<td><font color="#3A3A3A" size="3">
+                        <itemtemplate>
+                                30
+                            </itemtemplate>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        CE-1, Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Danapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        MMGSY OLD
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Construction of  Road from  Bihta  Shiwala Road to Gandhi Halt Via  Pandevpur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">27-Feb-2018</font></td><td><font color="#3A3A3A" size="3">
+                        
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        IEDanapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        S
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Pankaj  Kr.Singh  1390 / 09
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        <span id="gvATRRoadGen_lblATRComp_9"></span>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">&nbsp;</font></td>
+		</tr><tr bgcolor="#CCFFCC">
+			<td><font color="#3A3A3A" size="3">
+                        <itemtemplate>
+                                31
+                            </itemtemplate>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        CE-1, Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Danapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        SCP
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Construction of Road Tola Dibara pain in phulwari 
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">23-Mar-2018</font></td><td><font color="#3A3A3A" size="3">
+                        2653
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        IEDanapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        RI
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        M/S Om Construction 1206/08 II
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        <span id="gvATRRoadGen_lblATRComp_10"></span>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">&nbsp;</font></td>
+		</tr><tr bgcolor="LightGrey">
+			<td><font color="#3A3A3A" size="3">
+                        <itemtemplate>
+                                32
+                            </itemtemplate>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        CE-1, Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Danapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        MMGSY[SC]
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Danapur Naubatpur PWD Road to Sikandarpur Mushari Toli
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">27-Feb-2018</font></td><td><font color="#3A3A3A" size="3">
+                        
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        PQMDanapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        S
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Ram Jee/ RWD-2140004, class -II
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        <span id="gvATRRoadGen_lblATRComp_11"></span>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">&nbsp;</font></td>
+		</tr><tr bgcolor="#CCFFCC">
+			<td><font color="#3A3A3A" size="3">
+                        <itemtemplate>
+                                33
+                            </itemtemplate>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        CE-1, Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Danapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        FDR
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Repair Work of jafarpur to akilpur danapur road
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">11-Sep-2017</font></td><td><font color="#3A3A3A" size="3">
+                        
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        IEDanapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        S
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        RAJOO KUMAR | AMAPK9810E | 2160802
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        <span id="gvATRRoadGen_lblATRComp_12"></span>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">&nbsp;</font></td>
+		</tr><tr bgcolor="LightGrey">
+			<td><font color="#3A3A3A" size="3">
+                        <itemtemplate>
+                                34
+                            </itemtemplate>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        CE-1, Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Danapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        FDR
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Ratan tola to chihantar
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">10-Sep-2017</font></td><td><font color="#3A3A3A" size="3">
+                        
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        IEDanapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        S
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        DHANANJAY KUMAR SINGH | CDWPS4161D | 2160575
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        <span id="gvATRRoadGen_lblATRComp_13"></span>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">&nbsp;</font></td>
+		</tr><tr bgcolor="#CCFFCC">
+			<td><font color="#3A3A3A" size="3">
+                        <itemtemplate>
+                                35
+                            </itemtemplate>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        CE-1, Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Danapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        FDR
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Repair Work of cpanapur to jafarpur road
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">11-Sep-2017</font></td><td><font color="#3A3A3A" size="3">
+                        
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        IEDanapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        S
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        SRI NITISH KUMAR -> N | 1035/09  | No Online
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        <span id="gvATRRoadGen_lblATRComp_14"></span>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">&nbsp;</font></td>
+		</tr><tr bgcolor="LightGrey">
+			<td><font color="#3A3A3A" size="3">
+                        <itemtemplate>
+                                36
+                            </itemtemplate>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        CE-1, Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Danapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        FDR
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Repair Work of Link Road Panapur to Gangahara Danapur Road
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">12-Sep-2017</font></td><td><font color="#3A3A3A" size="3">
+                        
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        IEDanapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        S
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        NIRANJAN KUMAR THAKUR | ADIPT9859P | 2160305
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        <span id="gvATRRoadGen_lblATRComp_15"></span>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">&nbsp;</font></td>
+		</tr><tr bgcolor="#CCFFCC">
+			<td><font color="#3A3A3A" size="3">
+                        <itemtemplate>
+                                37
+                            </itemtemplate>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        CE-1, Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Danapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        FDR
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Repair Work of panapur to shankar habaspur danapur Road 
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">12-Sep-2017</font></td><td><font color="#3A3A3A" size="3">
+                        
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        IEDanapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        S
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        ANIL KUMAR SINGH-> D | ANSPS0903M | N/A
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        <span id="gvATRRoadGen_lblATRComp_16"></span>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">&nbsp;</font></td>
+		</tr><tr bgcolor="LightGrey">
+			<td><font color="#3A3A3A" size="3">
+                        <itemtemplate>
+                                38
+                            </itemtemplate>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        CE-1, Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Danapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        MR
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Repair of road from Amraha near Bihta Mahabalipur P.W.D. road to Kanchanpur road
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">23-Feb-2018</font></td><td><font color="#3A3A3A" size="3">
+                        
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        IEDanapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        S
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        RHYTHM CONSTRUCTION PROPRIETOR . HARIOM RAHUL
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        <span id="gvATRRoadGen_lblATRComp_17"></span>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">&nbsp;</font></td>
+		</tr><tr bgcolor="#CCFFCC">
+			<td><font color="#3A3A3A" size="3">
+                        <itemtemplate>
+                                39
+                            </itemtemplate>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        CE-1, Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Danapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        MMGSY[SC]
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Khadagpur Mushari Tola to primary School saranpur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">14-Jul-2018</font></td><td><font color="#3A3A3A" size="3">
+                        
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        IEDanapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        S
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        LAL MOHAN SINGH
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        <span id="gvATRRoadGen_lblATRComp_18"></span>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">&nbsp;</font></td>
+		</tr><tr bgcolor="LightGrey">
+			<td><font color="#3A3A3A" size="3">
+                        <itemtemplate>
+                                40
+                            </itemtemplate>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        CE-1, Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Patna
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Danapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        MR
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        Repair of road from Fulwari Aims Main road to house of Late Jagpal Paswan of Vrindavan Colony 
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">28-Jul-2018</font></td><td><font color="#3A3A3A" size="3">
+                        
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        IEDanapur
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        S
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        RAJEEV KUMAR
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        <span id="gvATRRoadGen_lblATRComp_19"></span>
+                    </font></td><td><font color="#3A3A3A" size="3">
+                        
+                    </font></td><td><font color="#3A3A3A" size="3">&nbsp;</font></td>
+		</tr><tr>
+			<td><font size="3">&nbsp;</font></td><td><font size="3">&nbsp;</font></td><td><font size="3">&nbsp;</font></td><td><font size="3">&nbsp;</font></td><td><font size="3">&nbsp;</font></td><td><font size="3">&nbsp;</font></td><td><font size="3">&nbsp;</font></td><td><font size="3">&nbsp;</font></td><td><font size="3">&nbsp;</font></td><td><font size="3">&nbsp;</font></td><td><font size="3">&nbsp;</font></td><td><font size="3">&nbsp;</font></td><td><font size="3">&nbsp;</font></td><td><font size="3">&nbsp;</font></td>
+		</tr><tr class="pagination-ys" align="left">
+			<td colspan="14"><font size="3"><table>
+				<tr>
+					<td><font size="3"><a href="javascript:__doPostBack(&#39;gvATRRoadGen&#39;,&#39;Page$1&#39;)">1</a></font></td><td><font size="3"><span>2</span></font></td><td><font size="3"><a href="javascript:__doPostBack(&#39;gvATRRoadGen&#39;,&#39;Page$3&#39;)">3</a></font></td><td><font size="3"><a href="javascript:__doPostBack(&#39;gvATRRoadGen&#39;,&#39;Page$4&#39;)">4</a></font></td><td><font size="3"><a href="javascript:__doPostBack(&#39;gvATRRoadGen&#39;,&#39;Page$5&#39;)">5</a></font></td><td><font size="3"><a href="javascript:__doPostBack(&#39;gvATRRoadGen&#39;,&#39;Page$6&#39;)">6</a></font></td><td><font size="3"><a href="javascript:__doPostBack(&#39;gvATRRoadGen&#39;,&#39;Page$7&#39;)">7</a></font></td><td><font size="3"><a href="javascript:__doPostBack(&#39;gvATRRoadGen&#39;,&#39;Page$8&#39;)">8</a></font></td><td><font size="3"><a href="javascript:__doPostBack(&#39;gvATRRoadGen&#39;,&#39;Page$9&#39;)">9</a></font></td>
+				</tr>
+			</table></font></td>
+		</tr>
+	</table>
+</div>
+
+        
+
+        
+    </div></div>
+    </form>
+</body>
+</html>
+<span><script language='javascript'>
+window.alert('Error!:System.NullReferenceException: Object reference not set to an instance of an object.
+   at Report_ATR_Report.BindGrid()')</script></span>

@@ -1,6 +1,6 @@
 """The family's `crawl` task (see scrape.json): one worker loop, one adapter per site.
 
-The project's pool entry sets ADAPTER (beams | lppp | rwdbihar | ngsk | kldlp | paimana | files); the adapter in adapters/<ADAPTER>.py turns one queue item into records
+The project's pool entry sets ADAPTER (beams | lppp | rwdbihar | rwdatr | ngsk | kldlp | paimana | files); the adapter in adapters/<ADAPTER>.py turns one queue item into records
 and stored documents. The pool worker runs this with the assignment's env and:
 SCRAPE_POOL_PROJECT (which project), SCRAPE_JOB_INDEX / SCRAPE_TOTAL_JOBS (this worker's slice), SCRAPE_MAX_HOURS (time budget).
 

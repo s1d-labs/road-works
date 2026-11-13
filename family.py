@@ -10,6 +10,8 @@ task arcgis: public ArcGIS layers with object ids (copy of road-maps' arcgis.py)
                          state highways, MDRs, road inventory, bridges, black spots, toll plazas.
   road-works-mp-ipms     MP IPMS works layers (ArcGIS): roads, buildings, bridges with AA / TS numbers.
   road-works-bihar-rwd   Bihar RWD road list per district: road, block, scheme, status.
+  road-works-bihar-atr   Bihar RWD quality report (ATR): wing -> circle -> division postbacks, every grid page; inspector, grade,
+                         contractor with PAN and registration, compliance letter (about 23,800 road rows; bridge and maintenance lists).
   road-works-ka-ngsk     Karnataka RDPR works per agency, year and district: work name with km, AA, amount, payment, status.
   road-works-kl-dlp      Kerala PWD works under defect liability: work, contractor and phone, division, DLP dates.
   road-works-paimana     MoSPI PAIMANA monthly status of central road projects of Rs 150 crore and more.
@@ -102,6 +104,9 @@ PROJECTS = [
     _proj("bihar-rwd", "Bihar Rural Works Department road list: road, block, scheme, status per district",
           "rwdbihar", [{"key": f"d-{c}", "payload": {"district": c, "district_name": n}} for c, n in BIHAR.items()],
           "district", "road", workers=1, delay_ms=3000, target="rwdbihar.gov.in"),
+    _proj("bihar-atr", "Bihar RWD quality report (ATR): every inspected rural road with inspector, grade, contractor (name, PAN, registration)",
+          "rwdatr", [{"key": "seed", "payload": {"kind": "seed"}}],
+          "division or report page set", "inspection", workers=2, delay_ms=2000, target="www.rwdbihar.gov.in"),
     _proj("ka-ngsk", "Karnataka RDPR works (NGSK): work-wise progress per agency, year and district",
           "ngsk", [{"key": f"a{a}-y{y}", "payload": {"year": y, "year_name": yn, "agency": a, "agency_name": an}}
                    for a, an in NGSK_AGENCIES.items() for y, yn in NGSK_YEARS.items()],
@@ -119,5 +124,5 @@ BEAMS_FORM = "https://beams.mahakosh.gov.in/Beams5/BudgetMVC/MISRPT/PWDWorkRepor
 PROBES = [{"name": f"{FAMILY}:beams.mahakosh.gov.in", "url": BEAMS_FORM, "expect": "selFinYear"},
           {"name": f"{FAMILY}:ngsk.karnataka.gov.in", "url": "https://ngsk.karnataka.gov.in/Reports/WorkWiseProgressReport", "expect": "FinancialYearId"}]
 PROJECTS[0]["probe"] = PROBES[0]["name"]
-PROJECTS[5]["probe"] = PROBES[1]["name"]
-assert PROJECTS[0]["name"].endswith("mh-beams") and PROJECTS[5]["name"].endswith("ka-ngsk")
+PROJECTS[6]["probe"] = PROBES[1]["name"]
+assert PROJECTS[0]["name"].endswith("mh-beams") and PROJECTS[6]["name"].endswith("ka-ngsk")

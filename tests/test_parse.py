@@ -1,7 +1,7 @@
 """Parsers on saved pages (2026-11-14). Run: python -m pytest tests"""
 from pathlib import Path
 
-from adapters import beams, kldlp, lppp, ngsk, rwdbihar
+from adapters import beams, kldlp, lppp, ngsk, rwdatr, rwdbihar
 from adapters.files import table_rows
 
 PAGES = Path(__file__).parent / "pages"
@@ -56,3 +56,18 @@ def test_beams_work_id():
     assert beams.work_id("DEC/12/146/03083") == "121214603083"
     assert beams.work_id("MAR/10/441/10432") == "100344110432"
     assert beams.work_id("bad") is None
+
+
+def test_bihar_atr():
+    last = page("bihar_atr_last.html")
+    rows = rwdatr.parse(last)
+    assert len(rows) == 6 and rwdatr.current_page(last, "gvATRRoadGen") == 1192
+    assert not rwdatr.has_page(last, "gvATRRoadGen", 1193)
+    r = rows[-1]
+    assert r["awarded_grade"] == "U" and r["atr_no"] == "7408" and r["letter_no"] == "710" and r["division"] == "Virpur"
+    p2 = page("bihar_atr_p2.html")
+    assert rwdatr.current_page(p2, "gvATRRoadGen") == 2 and rwdatr.has_page(p2, "gvATRRoadGen", 3)
+    assert len(rwdatr.parse(p2)) == 20 and rwdatr.selected(p2, "ddlDivision") == "2"
+    m = rwdatr.parse(page("bihar_atr_maint.html"), "gvATRMaintenance")
+    assert len(m) == 17 and m[0]["contractor_name"] == "Brahmdeo Yadav" and m[0]["contractor_reg"] == "904/09"
+    assert rwdatr.split_contractor("M/S RAMJEE SINGH AND CO. | AAHFR8155J | 1150233") == ("M/S RAMJEE SINGH AND CO.", "AAHFR8155J", "1150233")
