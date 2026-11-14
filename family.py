@@ -19,10 +19,16 @@ task arcgis: public ArcGIS layers with object ids (copy of road-maps' arcgis.py)
                          highways budget "details of works" PDFs, TNRSP contracts, Kerala iROADS road-section map tiles.
 
 Indian government servers: workers go through the hub's Indian proxies (proxy="IN"). No login, captcha or OTP is passed anywhere.
-Not collected (walls, 2026-11-14): MH PMIS (login + captcha), UP PWD Srishti / geofence (login; a static API key in the page JS:
-owner's call), MP Lok Path RIMS (token, OTP), Odisha works dashboard (login, signed API), Punjab PWIMS (login + captcha), KSHIP PMS
-(401), Kerala iROADS DLP API (a fixed key printed in the page: owner's call), NHAI toll system (down), IHMCL (Cloudflare check),
-PM GatiShakti (login), MoRTH PMIS (403), data.gov.in files (login; the API with the published sample key: owner's call).
+  road-works-kl-iroads   Kerala PWD iROADS: per road section (ids from the map tiles) the DLP API answer: start and end place,
+                         division, engineers, every defect liability work with contractor and phone. Fixed public-page key read from
+                         the portal page at run time (owner OK 2026-11-14). Worker runs DIRECT on dev-vps-3 (not in the pool).
+  road-works-datagovin   data.gov.in API with the sample key printed in data.gov.in's page script (read at run time, owner OK
+                         2026-11-14): catalog search for road datasets, then every row of each. DIRECT on dev-vps-3.
+
+Not collected (walls, 2026-11-14): MH PMIS (login + captcha), UP PWD Srishti (login + captcha), UP PWD geofence (the public work
+report takes a work code, and every list of work codes needs a Bearer login), MP Lok Path RIMS (token, OTP), Odisha works dashboard
+(login, signed API), Punjab PWIMS (login + captcha), KSHIP PMS (401), NHAI toll system (down), IHMCL (Cloudflare check), PM GatiShakti
+(login), MoRTH PMIS (403), data.gov.in file downloads (login).
 """
 import json
 from pathlib import Path
@@ -78,8 +84,8 @@ RAMS_LAYERS = ["WORKSHISTORY", "MPRDC_WORKSHIST", "MPRDC_WORKS_ONGOING_UPCOMING"
 IPMS = "https://gis.autodcr.com/server/rest/services/IPMS_GISLAYERS_LIVE/FeatureServer"
 
 
-def _proj(name, title, adapter, items, unit, record, workers=2, delay_ms=1000, target="", task="crawl", proxy_only=None):
-    return {"proxy_only": proxy_only, "name": f"{FAMILY}-{name}", "title": title, "task": task, "target": target, "env": {"ADAPTER": adapter} if adapter else {},
+def _proj(name, title, adapter, items, unit, record, workers=2, delay_ms=1000, target="", task="crawl", proxy_only=None, direct=False):
+    return {"direct": direct, "proxy_only": proxy_only, "name": f"{FAMILY}-{name}", "title": title, "task": task, "target": target, "env": {"ADAPTER": adapter} if adapter else {},
             "proxy": "IN", "max_workers": workers, "delay_ms": delay_ms, "unit_label": unit, "record_label": record, "items": items}
 
 
@@ -118,6 +124,12 @@ PROJECTS = [
           "month", "project-month", workers=1, delay_ms=2000, target="paimana-proj.mospi.gov.in"),
     _proj("national", "NHAI project lists, NHIDCL project status with contractors, Infracon tender lists, TN highways works PDFs, Kerala iROADS tiles",
           "files", NATIONAL, "file", "row or file", workers=2, delay_ms=1000, target="nhai.gov.in", proxy_only=["91.124.42."]),
+    _proj("kl-iroads", "Kerala PWD iROADS road sections: start and end place, division and engineers, every defect liability work with contractor",
+          "iroads", [{"key": f"s-{a:05d}", "payload": {"from": a, "to": a + 100}} for a in range(1, 9101, 100)],
+          "100 road sections", "road section", workers=1, delay_ms=1500, target="apipwdrmms.kerala.gov.in", direct=True),
+    _proj("datagovin", "data.gov.in road datasets (API, public sample key): PMGSY, road works, state road lengths, NH, road registers",
+          "datagovin", [{"key": "catalog", "payload": {"kind": "catalog"}}],
+          "catalog or resource", "resource", workers=1, delay_ms=1200, target="api.data.gov.in", direct=True),
 ]
 
 BEAMS_FORM = "https://beams.mahakosh.gov.in/Beams5/BudgetMVC/MISRPT/PWDWorkReports/pwd_capitalWorkRpt.jsp"

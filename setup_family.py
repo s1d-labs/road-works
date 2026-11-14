@@ -12,10 +12,10 @@ print("health checks:", set_probes(FAMILY, PROBES))
 for p in PROJECTS:
     register_project(p["name"], title=p["title"], unit_label=p["unit_label"], record_label=p["record_label"],
                      expected_units=len(p["items"]), expected_records=sum(i["payload"].get("expected", 0) for i in p["items"]))
-    held = HOLD_PROXIED and bool(p.get("proxy") or p.get("geo"))
+    held = (HOLD_PROXIED and bool(p.get("proxy") or p.get("geo"))) or bool(p.get("direct"))   # direct: a worker on dev-vps-3 runs it
     set_pool(p["name"], FAMILY, p["task"], target=p["target"], env=p["env"], probe=p.get("probe", ""), max_workers=p.get("max_workers"),
              proxy=p.get("proxy", ""), geo=p.get("geo", ""), proxy_only=p.get("proxy_only"), pool=not held,
              threads=1, delay_ms=p.get("delay_ms", 1000))
     if held:
-        print(p["name"], "held out of the pool (HOLD_PROXIED in family.py)")
+        print(p["name"], "held out of the pool (HOLD_PROXIED or direct in family.py)")
     print(p["name"], "queue:", seed_queue(p["name"], p["items"], reset_failed=True))

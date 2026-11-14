@@ -71,3 +71,12 @@ def test_bihar_atr():
     m = rwdatr.parse(page("bihar_atr_maint.html"), "gvATRMaintenance")
     assert len(m) == 17 and m[0]["contractor_name"] == "Brahmdeo Yadav" and m[0]["contractor_reg"] == "904/09"
     assert rwdatr.split_contractor("M/S RAMJEE SINGH AND CO. | AAHFR8155J | 1150233") == ("M/S RAMJEE SINGH AND CO.", "AAHFR8155J", "1150233")
+
+
+def test_page_keys():
+    from adapters import datagovin, iroads
+    js = "var headers = { 'shared-public-key': '0123456789abcdef0123456789abcdef', 'TenantId': 'kstp'}"
+    assert iroads.page_key(js) == ("0123456789abcdef0123456789abcdef", "kstp")
+    assert iroads.page_key("no key here") == (None, None)
+    assert datagovin.page_key(['x', 'VUE_APP_ENVIRONMENT_TYPE:"prod",VUE_APP_APIKEY:"00aa11bb22cc33dd44ee55ff6677"']) == "00aa11bb22cc33dd44ee55ff6677"
+    assert datagovin.ROAD.search("State-wise length of National Highways") and not datagovin.ROAD.search("Rainfall in Kerala")
