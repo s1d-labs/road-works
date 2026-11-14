@@ -13,12 +13,14 @@ the bucket already (road-works-national raw/files/kl-iroads-11-*.mvt.gz, layer "
 import gzip
 import json
 import re
+import time
 
 PORTAL = "https://pwdrmms.kerala.gov.in/citizen/portal/"
 API = "https://apipwdrmms.kerala.gov.in/identity/api/v1/shared-data/network-sections/{}/defect-liability-period-details"
 KEY = re.compile(r"""['"]shared-public-key['"]\s*:\s*['"]([0-9a-fA-F]{20,})['"]""")
 TENANT = re.compile(r"""['"]TenantId['"]\s*:\s*['"]([A-Za-z0-9_-]+)['"]""")
 _HEADERS = {}
+GAP = 1.0
 
 
 def page_key(text):
@@ -47,6 +49,7 @@ def run(ctx, p):
         return None
     n, miss_run, misses, raw = 0, 0, [], []
     for sid in range(int(p["from"]), int(p["to"])):
+        time.sleep(GAP)                             # at least ~1.5 s between calls, whatever the hub's delay (direct project)
         d = ctx.get_json("GET", API.format(sid), params={"unit": "KM"}, headers=h, timeout=60)
         if not isinstance(d, dict):
             misses.append(sid)

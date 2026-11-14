@@ -15,6 +15,7 @@ import gzip
 import json
 import os
 import re
+import time
 
 API = "https://api.data.gov.in"
 APIKEY = re.compile(r'VUE_APP_APIKEY:"([0-9a-f]{20,})"')
@@ -25,6 +26,7 @@ OTHER_FILTERS = [{"filters[sector]": "Road Transport"}, {"filters[sector]": "Tra
 ROAD = re.compile(r"(?i)road|highway|pmgsy|sadak|\bnh\s*-?\d|\bnhs?\b|bridge|expressway|\bpwd\b|flyover|\btoll|culvert|chainage|"
                   r"street|carriageway|by-?pass|\brob\b|\bmdr\b|\bodr\b|four.?lan|two.?lan|six.?lan|\blanes?\b|\bpath\b|marg\b")
 PAGE = 1000
+GAP = 0.7
 _KEY = {}
 
 
@@ -57,6 +59,7 @@ def api(ctx, path, params):
     k = key(ctx)
     if k is None:
         return None, None
+    time.sleep(GAP)                     # at least ~1.2 s between calls, whatever the hub's delay (direct project)
     r = ctx.request("GET", f"{API}/{path}", params={**params, "api-key": k, "format": "json"}, timeout=180)
     if r is None:
         return None, None
